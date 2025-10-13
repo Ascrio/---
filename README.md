@@ -115,23 +115,46 @@ GitHub链接：https://github.com/Ascrio/3123004548
  # 测试运行展示
 
 考虑篇幅限制，此处仅展示10类测试用例
+
 1.基本功能测试
+
 命令行输入python math_generator.py -n 5 -r 10生成5个数值范围不大于10的运算题目，生成对应的两个txt
+
 Exercises.txt内容如下
+
 <img width="650" height="273" alt="image" src="https://github.com/user-attachments/assets/745fe504-929b-4015-bf74-7f893fe697f1" />
+
 Answers.txt内容如下
+
 <img width="414" height="213" alt="image" src="https://github.com/user-attachments/assets/5aab8bea-289b-4820-b55c-ed2abcfb8f37" />
+
 经测试，答案正确且运行结果符合预期
+
 2.参数缺失测试
+
 只输入-n 5，此时命令行会发生报错
+
 <img width="1185" height="189" alt="image" src="https://github.com/user-attachments/assets/744ce1d8-96f1-4fc8-be39-fb86cbb9d09e" />
+
+
 经测试，答案正确且运行结果符合预期
+
 3.大量数据生成测试
+
 命令行输入python math_generator.py -n 10000 -r 10生成10000个数值范围不大于10的运算题目，生成对应的两个txt
+
 Exercises.txt内容如下
+
+<img width="692" height="780" alt="image" src="https://github.com/user-attachments/assets/443accca-5a7f-41a5-a4db-54b8407d1419" />
+
+
 Answers.txt内容如下
-<img width="414" height="213" alt="image" src="https://github.com/user-attachments/assets/5aab8bea-289b-4820-b55c-ed2abcfb8f37" />
-经测试，答案正确且运行结果符合预期
+
+<img width="415" height="789" alt="image" src="https://github.com/user-attachments/assets/febd36cf-229f-493f-8ffb-a372acac9fc4" />
+
+
+经测试，生成了10000道运算题，答案正确且运行结果符合预期
+
  # 模块部分异常处理说明
 
  ## 异常一：文档读取阶段异常
