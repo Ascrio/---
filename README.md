@@ -83,7 +83,7 @@ GitHub链接：https://github.com/Ascrio/3123004548
 
 考虑篇幅限制，此处仅展示10类测试用例
 
-1.基本功能测试
+1.基本功能-运算测试
 
 命令行输入python math_generator.py -n 5 -r 10生成5个数值范围不大于10的运算题目，生成对应的两个txt
 
@@ -103,7 +103,6 @@ Answers.txt内容如下
 
 <img width="1185" height="189" alt="image" src="https://github.com/user-attachments/assets/744ce1d8-96f1-4fc8-be39-fb86cbb9d09e" />
 
-
 经测试，答案正确且运行结果符合预期
 
 3.大量数据生成测试
@@ -114,13 +113,66 @@ Exercises.txt内容如下
 
 <img width="692" height="780" alt="image" src="https://github.com/user-attachments/assets/443accca-5a7f-41a5-a4db-54b8407d1419" />
 
-
 Answers.txt内容如下
 
 <img width="415" height="789" alt="image" src="https://github.com/user-attachments/assets/febd36cf-229f-493f-8ffb-a372acac9fc4" />
 
-
 经测试，生成了10000道运算题，答案正确且运行结果符合预期
+
+4.参数错误测试
+
+命令行输入python math_generator.py -n 10 -r abc检测系统是否报错
+
+输入后系统发生报错，内容如下
+
+<img width="1189" height="78" alt="image" src="https://github.com/user-attachments/assets/23cc4be7-c1d8-4590-a460-1e1159d35eec" />
+
+经测试，结果符合预期
+
+5.异常数量测试
+
+命令行输入python math_generator.py -n 10 -r -1检测系统是否报错
+
+输入后，系统发生报错，内容如下
+
+<img width="1177" height="89" alt="image" src="https://github.com/user-attachments/assets/d7437dd3-c074-4804-92ca-0337343c1abd" />
+
+经测试，结果符合预期
+
+ 6.分数生成随机性测试
+
+ 为验证分数生成的随机性，命令行输入python math_generator.py -n 10 -r 1检测生成分数情况
+
+ 得到Exercises.txt文件，文件内容如下
+
+ <img width="594" height="433" alt="image" src="https://github.com/user-attachments/assets/d62014b6-5261-48f5-901e-4c1a0d210119" />
+
+ 可见分数生成随机性很高，验证测试成功
+
+ 7.基本功能-批改测试
+
+ 命令行输入python math_generator.py -e Exercises.txt -a Answers.txt，系统会生成批改结果
+
+ 此处为验证预期结果，将部分题目对应的答案故意修改至错误，再次运行后，系统会生成批改结果，其中包括了答案正确的和答案错误的批改情况说明
+
+ <img width="1614" height="361" alt="image" src="https://github.com/user-attachments/assets/680a7ff0-1020-4e60-93a9-72d6da16e1ad" />
+
+ 同时，会将结果存入Grade.txt中
+
+ <img width="718" height="361" alt="image" src="https://github.com/user-attachments/assets/167651e8-6cda-4d69-8732-6ef5724523c3" />
+
+ 经过测试，批改功能结果符合预期
+
+ 8.空文本测试
+
+ 将其中的Exercises.txt改成空的文本，并在命令行输入python math_generator.py -e Exercises.txt -a Answers.txt，系统会发生报错
+
+ <img width="1445" height="78" alt="image" src="https://github.com/user-attachments/assets/32189a02-c2db-4302-bdc3-657d0f8e7ab8" />
+
+ 经过测试，结果符合预期
+
+ 9.错误文本测试
+
 
  # 模块部分异常处理说明
 
