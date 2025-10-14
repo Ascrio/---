@@ -36,49 +36,10 @@ GitHub链接：https://github.com/Ascrio/3123004548
 </center>
 
 # 模块接口的设计与实现过程
- ## 设计概述
 
-采用基于余弦相似度算法的词袋模型，设计了该论文查重功能，并通过DocumentComparator类来封装整个查重算法功能，并采用面向对象的方式组织代码，确保模块化和可维护性
-
- ## 函数设计以及调用模块展示
- ### 核心函数DocumentComparator类包括以下函数
-
- 1._ init _():初始化jieba分词器
  
- 2.fetch_document_data(): 读取文档内容
- 
- 3.process_content(): 对内容进行分词和预处理，同时构建词汇表
- 
- 4.compute_document_similarity(): 余弦相似度算法计算两个文档的相似度
- 
- 5.execute_comparison(): 执行完整的比较流程
 
- ### 辅助函数primary_function()则负责处理命令行参数和程序流程
- ### 各函数之间调用模块关系如下
-
-<img width="5722" height="5824" alt="diagram" src="https://github.com/user-attachments/assets/3fb6d80d-f320-40e4-8548-63a4266eb713" />
-
- ## 算法设计与流程展示
-
- 1.对指定的文本进行jieba分词器处理，将文本处理成词语序列，同时过滤处理文本中出现的符号
-
- 2.读取源文档和目标文档，并对两个文档进行分词和过滤处理
-
- 3.使用gensim构建词袋模型(Bag-of-Words Model)
-
- 4.计算文本余弦相似度，并将结果标准化到[0,1]范围
-
- 5.输出结果至文件
-
- 核心函数DocumentComparator 流程图如下
-
-<img width="2663" height="6533" alt="4e4ac3f0d27a53bf62d2b7fc46da9462" src="https://github.com/user-attachments/assets/c7543c01-3c7c-4f70-8c60-fc16c0baf788" />
-
- 算法的关键点在于文本分词以及词袋模型的构建，文本分词为文档转换成词频向量做了铺垫，而词袋模型的构建是文本查重算法实现的基础核心
- 
- 该算法实现简单，无需复杂的语义分析，适合处理大量文档，且对词序不敏感能够实现检测内容重复而非结构化抄袭，同时不依赖词典库
-
- # 模块接口的性能改进
+# 模块接口的性能改进
 
 设计之初的代码性能分析图如下
 
@@ -100,13 +61,17 @@ GitHub链接：https://github.com/Ascrio/3123004548
 
  # 运行结果展示
 
- 如下展示两个相似文本orig.txt和orig_0.8_add.txt的运行结果
+ 1.生成题目
+ 
+ 输入python math_generator.py -n <数值a> -r <数值b>，系统会生成a道范围不大于b的运算题Exercises.txt和对应的答案Answers.txt
 
- 将两个文本的路径代入后，输入两个txt文件的路径，显示运行结果图如下
+ <img width="163" height="347" alt="image" src="https://github.com/user-attachments/assets/78c536fb-f5ba-4e3e-964e-e0cf2961e93a" />
 
- <img width="2549" height="292" alt="image" src="https://github.com/user-attachments/assets/e9c52fee-401d-433d-b425-625aba9d731f" />
+ 具体内容请参考测试运行展示部分
 
- 显示结果为99.17%，符合结果预期
+ 2.批改题目
+
+ 
  
  # 测试运行展示
 
