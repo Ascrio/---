@@ -80,27 +80,23 @@ GitHub链接：https://github.com/Ascrio/3123004548
 
  # 模块接口的性能改进
 
- 最初代码采用基于给定停用词列表的simhash算法，经运行后得出性能分析图如下
- 
- <img width="2586" height="1356" alt="image" src="https://github.com/user-attachments/assets/2d06fa83-27f5-4662-841b-0ae07f6c93b7" />
+设计之初的代码性能分析图如下
 
- 后经研究发现，代码对停用词列表高度依赖且算法因为反复查看停用词导致算法的时间成本耗费很大，同时存在多处函数开销极大的情况(如_find_and_load函数)
+<img width="1586" height="957" alt="1939fbcfd38c0849a92e816a4ad52e3b" src="https://github.com/user-attachments/assets/c42c4264-a9ba-47a4-a063-7115ed0a10e7" />
 
- 同时，该算法存在无法区分差距较大的文本，导致即使文本完全不同，也有50%以上的相似度，如下图所示
+后经验证发现，该算法耗时成本很高，同时存在以下缺陷
 
-<img width="1074" height="225" alt="image" src="https://github.com/user-attachments/assets/a625b142-94c6-4e72-8209-45bd688732c0" />
-  
- 经过代码改进，性能图如下
+1.最大公约数筛选函数gcd采用的基于遍历的递归算法，该算法效率低下
 
- <img width="2568" height="1362" alt="image" src="https://github.com/user-attachments/assets/cec5e924-4b20-4e4a-8a87-4b9a710dec9e" />
+2.generate_number采用的随机生成算法存在随机性过低，且该情况会随着范围的缩小降低（比如降至-r 1时只会生成0与1的数值），同时一些生成数值的逻辑效率过低，有大量冗余算法
 
- 可见，函数平均时间耗费有所降低，且函数利用得到有效提升
+经过代码改进，将gcd函数中基于遍历的递归算法改为欧几里得算法，同时将generate_number函数加入随机性逻辑，优化了部分选数逻辑后，效率有所提高
 
- 同时，对于差异较大的文本，该算法能够完全区分并且以此给出较低的相似度
+更正后的代码性能分析图如下
 
- <img width="1014" height="185" alt="image" src="https://github.com/user-attachments/assets/f97e6a30-04ee-4bd2-9e0d-45c8f49001b9" />
+<img width="1955" height="956" alt="fdcaae23c3d0bdc0c3cbab7ccd9932b6" src="https://github.com/user-attachments/assets/9eb1c7cd-737e-4a08-9f0e-9a24f7e83232" />
 
- 在改进版的算法中，虽然消耗最大的函数依旧为_find_and_load函数，但是函数的平均开销相比前者有所降低，性能得到一定改进
+经比较，更正后的代码性能更优，且能快速生成大量运算题
 
  # 运行结果展示
 
