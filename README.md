@@ -65,14 +65,20 @@ GitHub链接：https://github.com/Ascrio/3123004548
  
  输入python math_generator.py -n <数值a> -r <数值b>，系统会生成a道范围不大于b的运算题Exercises.txt和对应的答案Answers.txt
 
- <img width="163" height="347" alt="image" src="https://github.com/user-attachments/assets/78c536fb-f5ba-4e3e-964e-e0cf2961e93a" />
+<img width="286" height="134" alt="image" src="https://github.com/user-attachments/assets/5f139a0a-22ec-4f64-adb7-53bcf91f986a" />
 
  具体内容请参考测试运行展示部分
 
  2.批改题目
 
- 
- 
+ 输入python math_generator.py -e <exercise.txt> -a <answer.txt>后，系统会判断指定的答案文件相对于练习文件的对错
+
+ <img width="1614" height="361" alt="image" src="https://github.com/user-attachments/assets/680a7ff0-1020-4e60-93a9-72d6da16e1ad" />
+
+ 同时，会将结果存入Grade.txt中
+
+ <img width="718" height="361" alt="image" src="https://github.com/user-attachments/assets/167651e8-6cda-4d69-8732-6ef5724523c3" />
+
  # 测试运行展示
 
 考虑篇幅限制，此处仅展示10类测试用例
