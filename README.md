@@ -173,7 +173,24 @@ Answers.txt内容如下
 
  9.错误文本测试
 
+故意修改Exercises.txt中的运算符号
 
+<img width="463" height="221" alt="image" src="https://github.com/user-attachments/assets/18150459-23d5-47e9-b1cf-e4f8c88922d6" />
+
+修改后运行，系统会批改除了有异常符号的题目的其余部分题目，并在出问题的题目处给予报错信息
+
+<img width="2057" height="367" alt="image" src="https://github.com/user-attachments/assets/57fe6cec-444f-452d-bb48-43f8b5244493" />
+
+经过测试，结果符合预期
+
+ 10.文件不存在测试
+
+ 删除Answers.txt文件，并运行python math_generator.py -e Exercises.txt -a Answers.txt，系统会发生报错，内容如下
+
+ <img width="1446" height="76" alt="image" src="https://github.com/user-attachments/assets/a0640f25-1bfe-44a9-8721-764f9e5d05d8" />
+
+ 经过测试，结果符合预期
+ 
  # 模块部分异常处理说明
 
  ## 异常一：文档读取阶段异常
