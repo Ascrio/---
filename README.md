@@ -190,54 +190,36 @@ Answers.txt内容如下
  <img width="1446" height="76" alt="image" src="https://github.com/user-attachments/assets/a0640f25-1bfe-44a9-8721-764f9e5d05d8" />
 
  经过测试，结果符合预期
+
+ # 代码分析及思路说明
+
+ 本代码基于递归思想，设计了表达式树结构，其核心为一共分六部分关键代码，相关思路如下：
+
+ 1.分数类FractionNumber：负责封装分数运算，确保分数始终保持最简形式，同时自动处理符号，保证分母始终为正，该类支持带分数表示（如2'1/3）
+
+ 2.表达式树结构类BinaryOpNode：使用二叉树表示表达式，便于递归求值和去重，并在求值时进行约束检查（此约束为题目要求约束）
+
+ 3.题目生成算法generate_expression：递归构建表达式树，并随机选择运算符位置，该模块还配备了以下处理机制：
+ 
+ (1).除法特殊处理：确保运算生成
+
+ (2).重试机制：当生成不符合条件的运算表达式时自动重试
+
+ 4.去重函数get_structure_hash：为每个表达式生成结构哈希值，对满足交换律的运算符进行左右子节点顺序标准化，并通过哈希集合检测重复题目
+
+ 5.数字生成策略函数generate_number：利用完全随机的选择策略，设定20%概率生成整数，20%概率生成真分数，20%生成任意分数，20%概率生成带分数，其余20%完全随机生成数，并确保数值在指定范围内，实际概率可根据需求进行修改
+
+ 6.答案批改函数comare_answers：解析题目表达式并计算标准答案，并精确比较分数值而非字符串，最后生成详细的批改报告
+
+ 该算法涉及表达式树，去重哈希等算法，具备一定高效性
  
  # 模块部分异常处理说明
 
- ## 异常一：文档读取阶段异常
- 目标：当用户传入的文档路径无效（如文件不存在、无权限、编码错误等），避免程序因 FileNotFoundError、UnicodeDecodeError等异常而中断
- 处理方式：使用 try-except捕获所有可能的读取异常，打印具体错误信息，并返回空字符串 ""作为兜底内容
- ```python
- def fetch_document_data(self, document_location):
-    try:
-        with open(document_location, 'r', encoding='UTF-8') as file_obj:
-            return file_obj.read()
-    except Exception as error:
-        print(f"文档读取异常 {document_location}: {error}")
-        return ""
- ```
- 对应代码测试片段如下
- ```python
- class TestDocumentFetcher(unittest.TestCase):
-    def test_fetch_nonexistent_file(self):
-        comparator = DocumentComparator()
-        result = comparator.fetch_document_data("dummy_nonexistent_file_12345.txt")
-        self.assertEqual(result, "")  # 应返回空字符串
- ```
- ## 异常二：内容处理阶段异常
- 目标：对读取到的原始内容进行分词和过滤，但如果传入的内容为空（比如上个阶段读取失败返回了 ""），则直接返回空列表，避免后续处理出错。
- 处理方式​​：首先判断 content_data是否为空，如果是，则返回空列表 []，而不是继续分词。
- ```python
- def process_content(self, content_data):
-    if not content_data:  # 处理空字符串（包括空文件）
-        return []
-    segmented_data = jieba.lcut(content_data)
-    filtered_result = []
-    for segment in segmented_data:
-        if re.match(r"[a-zA-Z0-9\u4e00-\u9fa5]", segment):  # 保留中/英文字符和数字
-            filtered_result.append(segment)
-    return filtered_result
- ```
- 对应代码测试片段如下
- ```python
- def test_process_empty_content(self):
-    comparator = DocumentComparator()
-    result = comparator.process_content("")
-    self.assertEqual(result, [])  # 空内容应返回空列表
- ```
 
-# 模型改进建议及使用说明
 
-## 模型改进建议
+# 算法改进建议及使用说明
+
+## 算法改进建议
 
 该模型存在以下局限性
 
@@ -253,20 +235,18 @@ Answers.txt内容如下
 
 ## 使用说明
 
-### main.py
+### 生成题目
 
-运行时，用户需往命令行里输入对应格式
+输入python math_generator.py -n <数值a> -r <数值b>，系统会生成a道范围不大于b的运算题Exercises.txt和对应的答案Answers.txt
 
- python main.py [原文文件路径] [抄袭版论文的文件路径] [答案文件路径]
+<img width="286" height="134" alt="image" src="https://github.com/user-attachments/assets/5f139a0a-22ec-4f64-adb7-53bcf91f986a" />
 
- <img width="2458" height="301" alt="image" src="https://github.com/user-attachments/assets/37a478b1-8d26-4f60-b690-33e9dbe5d6c7" />
+txt具体内容请参考测试运行展示部分
 
-输入后，函数将输出结果至答案txt文件中
+### 批改题目
 
-<img width="744" height="659" alt="image" src="https://github.com/user-attachments/assets/3b8991d8-8238-45e6-a6a1-b3fb56787b4a" />
+输入python math_generator.py -e <exercise.txt> -a <answer.txt>后，系统会判断指定的答案文件相对于练习文件的对错
 
-### paperchecker.py
+<img width="1614" height="361" alt="image" src="https://github.com/user-attachments/assets/680a7ff0-1020-4e60-93a9-72d6da16e1ad" />
 
-运行时，需确保main.py文件存在且包含DocumentComparator类,往命令行输入python paperchecker.py即可运行18种单元测试，并给出对应结果
-
-<img width="2412" height="1304" alt="image" src="https://github.com/user-attachments/assets/ed6e93c3-8ecd-4f3e-8395-6d70cc68c98b" />
+同时，会将结果存入Grade.txt中
