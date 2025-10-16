@@ -215,38 +215,24 @@ Answers.txt内容如下
  
  # 模块部分异常处理说明
 
+ # 使用说明
 
+ ## 生成题目
 
-# 算法改进建议及使用说明
+ 输入python math_generator.py -n <数值a> -r <数值b>，系统会生成a道范围不大于b的运算题Exercises.txt和对应的答案Answers.txt
 
-## 算法改进建议
+ <img width="286" height="134" alt="image" src="https://github.com/user-attachments/assets/5f139a0a-22ec-4f64-adb7-53bcf91f986a" />
 
-该模型存在以下局限性
+ txt具体内容请参考测试运行展示部分
 
-1.对于短文本且近义词占比较多的相似文本，算法难以区分其相似度并会给出低于期望的相似度
+ ## 批改题目
 
-2.难以区分极少数可能存在前后文关系的亦或是语序关系的文本
+ 输入python math_generator.py -e <exercise.txt> -a <answer.txt>后，系统会判断指定的答案文件相对于练习文件的对错
 
-基于该局限性，给出如下可能改进方向
+ <img width="1614" height="361" alt="image" src="https://github.com/user-attachments/assets/680a7ff0-1020-4e60-93a9-72d6da16e1ad" />
 
-1.引入新模型，考虑词汇序列等信息
+ 同时，会将结果存入Grade.txt中
 
-2.结合语义向量，使用深度学习模型
+ # 项目总结
 
-## 使用说明
-
-### 生成题目
-
-输入python math_generator.py -n <数值a> -r <数值b>，系统会生成a道范围不大于b的运算题Exercises.txt和对应的答案Answers.txt
-
-<img width="286" height="134" alt="image" src="https://github.com/user-attachments/assets/5f139a0a-22ec-4f64-adb7-53bcf91f986a" />
-
-txt具体内容请参考测试运行展示部分
-
-### 批改题目
-
-输入python math_generator.py -e <exercise.txt> -a <answer.txt>后，系统会判断指定的答案文件相对于练习文件的对错
-
-<img width="1614" height="361" alt="image" src="https://github.com/user-attachments/assets/680a7ff0-1020-4e60-93a9-72d6da16e1ad" />
-
-同时，会将结果存入Grade.txt中
+ 
