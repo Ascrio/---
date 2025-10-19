@@ -51,7 +51,7 @@ generate_exercises(n, r)是关键函数，它的作用是生成n道题目并保�
 
 核心函数enerate_exercises流程图如下图所示
 
-<img width="671" height="1346" alt="image" src="https://github.com/user-attachments/assets/d2a0c8fe-5d74-44a3-8e99-f025eb758334" />
+![e5b4c80e602de7a418ab8f635727a28c](https://github.com/user-attachments/assets/230c9e64-580c-4dfd-8935-cc4c77138325)
 
 # 代码分析及思路说明
 
