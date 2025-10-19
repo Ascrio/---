@@ -1,6 +1,6 @@
 # 软件工程结队项目
 ## 项目参与成员
-### 计科三班 ？？？？？ 郭涛
+### 计科三班 3123006072 郭涛
 ### 计科三班 3123004548 袁智燊
 | 这个作业属于哪个课程 | <[https://edu.cnblogs.com/campus/gdgy/SoftwareEngineering2024](https://edu.cnblogs.com/campus/gdgy/Class34Grade23ComputerScience)> |
 | ----------------- | ---------------- |
@@ -41,7 +41,7 @@ FractionNumber类是核心数据结构类，用来处理分数运算。提供从
 
 Node类族用于构建和处理数学表达式的抽象语法树。这些节点类形成了表达式树结构，便于生成、计算和格式化数学表达式
 
-generate_exercises(n, r)是一个关键的函数，它的作用是生成n道题目并保存到文件
+generate_exercises(n, r)是关键函数，它的作用是生成n道题目并保存到文件
 
 题目生成流程通过递归构建表达式树，并用哈希机制避免重复题目；答案批改流程先比较用户答案和正确答案，再输出统计结果到Grade.txt文件，有模块化、严格的分数机制等设计特点
 
@@ -49,7 +49,9 @@ generate_exercises(n, r)是一个关键的函数，它的作用是生成n道题�
 
 <img width="1663" height="685" alt="dc414b5d904a449ffe51ee83cb4b125b" src="https://github.com/user-attachments/assets/9689263e-5980-4429-819f-2a36ae6e9399" />
 
-算法流程图如下图所示
+核心函数enerate_exercises流程图如下图所示
+
+<img width="671" height="1346" alt="image" src="https://github.com/user-attachments/assets/d2a0c8fe-5d74-44a3-8e99-f025eb758334" />
 
 # 代码分析及思路说明
 
