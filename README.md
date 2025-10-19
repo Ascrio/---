@@ -215,23 +215,111 @@ Answers.txt内容如下
  
  # 模块部分异常处理说明
 
- # 使用说明
+## 异常处理一：规则检查处理
 
- ## 生成题目
+目标： 检查数学运算中不符合题目规则要求的情况
 
- 输入python math_generator.py -n <数值a> -r <数值b>，系统会生成a道范围不大于b的运算题Exercises.txt和对应的答案Answers.txt
+对应代码片段如下：
 
- <img width="286" height="134" alt="image" src="https://github.com/user-attachments/assets/5f139a0a-22ec-4f64-adb7-53bcf91f986a" />
+``` python
+def __truediv__(self, other: 'FractionNumber') -> 'FractionNumber': # 除零异常检查
+    if other.numerator == 0: # 检查是否存在除数为零的情况
+        raise ZeroDivisionError("Cannot divide by zero.")
+    new_num = self.numerator * other.denominator
+    new_den = self.denominator * other.numerator
+    return FractionNumber(new_num, new_den)
+def __sub__(self, other: 'FractionNumber') -> 'FractionNumber': # 减法结果负值异常检查
+    new_num = self.numerator * other.denominator - other.numerator * self.denominator
+    new_den = self.denominator * other.denominator
+    return FractionNumber(new_num, new_den)
+elif self.op == '-': # 检查是否存在e1 < e2的情况
+    if l.value() < r.value():
+        raise ValueError("Subtraction would result in negative.")
+    return l - r
+def is_proper_fraction(fraction: FractionNumber) -> bool: # 真分数约束检查
+    return abs(fraction.numerator) < fraction.denominator and fraction.denominator > 1
+if op == '/': # 在除法运算后的验证
+    res = l / r # 严格检查除法结果是否为真分数
+    if not is_proper_fraction(res):
+        raise ValueError("Division result must be a proper fraction...")
+```
 
- txt具体内容请参考测试运行展示部分
+## 异常处理二：表达式解析异常处理
 
- ## 批改题目
+目标：处理用户输入表达式格式错误
 
- 输入python math_generator.py -e <exercise.txt> -a <answer.txt>后，系统会判断指定的答案文件相对于练习文件的对错
+对应代码片段如下：
 
- <img width="1614" height="361" alt="image" src="https://github.com/user-attachments/assets/680a7ff0-1020-4e60-93a9-72d6da16e1ad" />
+``` python
+def evaluate_expression(expression: str) -> FractionNumber:
+    expr_processed = preprocess_expression(expression)
+    try:
+        result = eval(expr_processed)
+    except Exception as e:
+        raise ValueError(f"表达式求值失败：{e}")
+    if isinstance(result, Fraction): # 类型检查
+        return FractionNumber(int(result.numerator), int(result.denominator))
+    elif isinstance(result, int):
+        return FractionNumber(result, 1)
+    else:
+        raise ValueError(f"无法识别的计算结果类型：{type(result)}")
+```
 
- 同时，会将结果存入Grade.txt中
+## 异常处理三：文件操作异常处理
+
+目标：确保文件读写操作的可靠性
+
+对应代码片段如下：
+
+``` python
+def compare_answers(exercise_file: str, answer_file: str):
+    try:
+        with open(exercise_file, 'r', encoding='utf-8') as f:
+            exercises = f.readlines()
+        with open(answer_file, 'r', encoding='utf-8') as f:
+            answers = f.readlines() 
+        if len(exercises) != len(answers):
+            print(f"❌ 错误：题目数量({len(exercises)}) 与答案数量({len(answers)}) 不相等。")
+            return
+    except Exception as e:
+        print(f"批改时发生错误：{e}")
+```
+
+## 异常处理四：题目生成重试机制
+
+目标：处理生成过程中的临时错误，确保最终输出
+
+对应代码片段如下：
+
+``` python
+def generate_expression(r: int, max_ops: int = MAX_OPERATORS) -> Tuple[str, FractionNumber, str]:
+    num_tries = 0
+    max_tries = 1000
+    
+    while num_tries < max_tries:
+        num_tries += 1
+        try: # 生成逻辑
+            return expr_str, val, structure_hash
+        except Exception as e:
+            continue  # 静默重试
+    raise RuntimeError("Failed to generate valid expression after many tries.")
+```
+
+## 异常处理五：参数验证异常
+
+目标：确保输入参数的合法性
+
+对应代码片段如下：
+
+``` python
+def main():  # 参数解析
+    if r < 1:
+        print("❌ 错误：-r 后的数值范围必须 >= 1，例如：-r 10")
+        return
+    except ValueError:
+        print("❌ 错误：-n 后必须跟一个整数，表示题目数量。例如：-n 10")
+        return
+```
 
  # 项目总结
 
